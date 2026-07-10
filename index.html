@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yantra-Yukti — build how things work</title>
+<meta name="description" content="Yantra-Yukti is a private, invitation-only systems-thinking sandbox for curious kids. Reverse-engineer everyday machines, build their hidden logic, press Run, and watch it come alive. Deterministic, offline, ad-free.">
+<meta name="theme-color" content="#0B0E2E">
+<meta property="og:title" content="Yantra-Yukti — build how things work">
+<meta property="og:description" content="Take apart everyday machines and program their hidden logic. A calm, invitation-only sandbox for curious kids.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0B0E2E; --bg-mid:#171B4D; --gold:#F2B84B; --gold-soft:#f5c86e;
+    --mint:#6FCF97; --coral:#F0705A; --peri:#A8B4F0;
+    --ink:#F5F3ED; --muted:#9FA8D9; --card:#1E2260; --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; font-family:Inter, system-ui, sans-serif; color:var(--ink);
+    background:radial-gradient(1100px 620px at 50% -8%, #1c2560, var(--bg-deep) 68%);
+    background-attachment:fixed; min-height:100vh; line-height:1.55;
+  }
+  a{color:var(--gold); text-decoration:none;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 20px;}
+
+  /* Hero */
+  .hero{text-align:center; padding:70px 20px 40px;}
+  .hero-mark{width:104px; height:104px; border-radius:24px; display:block; margin:0 auto 16px; box-shadow:0 12px 34px rgba(0,0,0,.32);}
+  .kicker{font-size:13px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 14px;}
+  .wordmark{font-family:'Baloo 2', sans-serif; font-weight:800; font-size:clamp(40px, 8.5vw, 76px);
+    color:var(--gold); line-height:1.02; margin:0; letter-spacing:.5px;}
+  .tagline{font-family:'Baloo 2', sans-serif; font-weight:700; font-size:clamp(17px, 3vw, 23px); color:var(--ink); margin:10px 0 0;}
+  .lead{font-size:clamp(16px, 2.3vw, 20px); color:var(--ink); max-width:640px; margin:16px auto 0;}
+  .sub{color:var(--muted); max-width:600px; margin:12px auto 0; font-size:15.5px;}
+  .sub b{color:var(--gold-soft); font-weight:700;}
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:28px;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:16px;
+    padding:15px 26px; border-radius:14px; border:1px solid transparent; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;}
+  .btn-primary{background:var(--gold); color:#231903; box-shadow:0 10px 30px rgba(242,184,75,.28);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px rgba(242,184,75,.36);}
+  .btn-ghost{background:rgba(255,255,255,.05); color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{background:rgba(255,255,255,.09);}
+  .chips-row{display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin-top:22px;}
+  .chip{display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px;
+    background:rgba(242,184,75,.10); border:1px solid rgba(242,184,75,.32); color:var(--gold-soft); font-size:13px; font-weight:600;}
+
+  /* Sections */
+  section{padding:26px 0;}
+  h2{font-family:'Baloo 2', sans-serif; font-size:26px; text-align:center; margin:8px 0 6px;}
+  .section-sub{text-align:center; color:var(--muted); margin:0 auto 26px; max-width:600px; font-size:15px;}
+
+  /* How it works — 3 steps */
+  .steps{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 18px; text-align:center;}
+  .step .n{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; color:#231903; background:var(--gold);
+    width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px;}
+  .step h3{font-family:'Baloo 2', sans-serif; font-size:17px; margin:0 0 6px;}
+  .step p{margin:0; color:var(--muted); font-size:14px;}
+
+  /* Feature grid */
+  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .feat{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px 18px;}
+  .feat .i{font-size:26px; display:block; margin-bottom:10px;}
+  .feat h3{font-family:'Baloo 2', sans-serif; font-size:17px; margin:0 0 6px;}
+  .feat p{margin:0; color:var(--muted); font-size:14px;}
+
+  /* Machines */
+  .machines{display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin-top:6px;}
+  .machine{background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:600;}
+
+  /* Access callout */
+  .access{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:20px; padding:34px 26px; text-align:center; margin:10px 0 4px;}
+  .access h2{margin-top:0;}
+  .access p{color:var(--muted); max-width:560px; margin:0 auto 20px; font-size:15.5px;}
+
+  footer{text-align:center; color:var(--muted); font-size:12.5px; padding:34px 20px 46px; line-height:1.7;}
+  footer .disc{max-width:640px; margin:8px auto 0; opacity:.8;}
+  footer .fam{margin-top:10px;}
+
+  @media (max-width:720px){ .grid, .steps{grid-template-columns:1fr 1fr;} }
+  @media (max-width:460px){ .grid, .steps{grid-template-columns:1fr;} .hero{padding-top:52px;} }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">Systems thinking for curious kids</p>
+      <img class="hero-mark" src="icon.png" alt="Yantra-Yukti logo" width="104" height="104">
+      <h1 class="wordmark">Yantra-Yukti</h1>
+      <p class="tagline">Build how things work</p>
+      <p class="lead">Take apart the everyday machines around you — a night lamp, a vending machine, a lift — map their hidden logic, then press <b>Run</b> and watch your design come alive.</p>
+      <p class="sub"><b>Yantra</b> (machine) + <b>Yukti</b> (logic) — kids program the invisible software of the physical world, and the app shows them exactly where their logic still needs fixing.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://yantra-yukti.web.app">Enter Yantra-Yukti →</a>
+        <a class="btn btn-ghost" href="#access">Request access</a>
+      </div>
+      <div class="chips-row">
+        <span class="chip">🔒 Invitation-only</span>
+        <span class="chip">📴 Works offline</span>
+        <span class="chip">🚫 No ads · no tracking</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>How it works</h2>
+      <p class="section-sub">No syntax to memorise — just rules, and a machine that reacts.</p>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Pick a machine</h3><p>Choose an everyday machine and figure out the hidden logic that should make it work.</p></div>
+        <div class="step"><div class="n">2</div><h3>Build the rules</h3><p>Assemble simple <b>WHEN … THEN …</b> rules from dropdowns — conditions, AND / OR / NOT, memory, timers, states.</p></div>
+        <div class="step"><div class="n">3</div><h3>Press Run</h3><p>Watch it animate through every test. Green means it works; a red mark shows the exact moment your logic slips.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why kids love it</h2>
+      <div class="grid">
+        <div class="feat"><span class="i">🔧</span><h3>Build, don't watch</h3><p>Children author the logic themselves — then see their design run on an animated device.</p></div>
+        <div class="feat"><span class="i">🎯</span><h3>Debug, don't guess</h3><p>When it's wrong, the app points at the one situation that breaks — real problem-solving, not trial and error.</p></div>
+        <div class="feat"><span class="i">🌈</span><h3>Many right answers</h3><p>Each machine can be solved several valid ways, so kids find their own design and their own creativity.</p></div>
+        <div class="feat"><span class="i">🧠</span><h3>Real systems thinking</h3><p>Logic, memory, timing, states, safety and decisions — the ideas behind real programming, with no code.</p></div>
+        <div class="feat"><span class="i">📴</span><h3>Calm & offline</h3><p>Deterministic and 100% offline — no AI, no server, no ads, and a child's work stays in their browser.</p></div>
+        <div class="feat"><span class="i">🎉</span><h3>Made to delight</h3><p>Animated machines, a light/dark theme, gentle hints, worked examples, and confetti when it clicks.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>13 machines to master</h2>
+      <p class="section-sub">Each teaches a new idea — from simple logic to sequences, control loops, and edge-detection.</p>
+      <div class="machines">
+        <span class="machine">💡 Night Lamp</span>
+        <span class="machine">🥤 Vending Machine</span>
+        <span class="machine">🚦 Traffic Light</span>
+        <span class="machine">🚪 Automatic Door</span>
+        <span class="machine">🛗 Elevator</span>
+        <span class="machine">🔐 Safe</span>
+        <span class="machine">⏲️ Microwave</span>
+        <span class="machine">🎫 Turnstile</span>
+        <span class="machine">🚰 Water Pump</span>
+        <span class="machine">🌀 Washing Machine</span>
+        <span class="machine">🚨 Burglar Alarm</span>
+        <span class="machine">🌬️ Fan</span>
+        <span class="machine">🚂 Level Crossing</span>
+      </div>
+    </section>
+
+    <section id="access">
+      <div class="access">
+        <h2>Getting in</h2>
+        <p>Yantra-Yukti is private and invitation-only. If you've been invited, just sign in with that email. Need access? Reach out and we'll set you up.</p>
+        <div class="cta-row" style="margin-top:0;">
+          <a class="btn btn-primary" href="https://yantra-yukti.web.app">Sign in →</a>
+          <a class="btn btn-ghost" href="mailto:support.yantrayukti@gmail.com">Email support.yantrayukti@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="yr">2026</span> Yantra-Yukti · Independently built for curious kids.</div>
+      <div class="disc">Calm, ad-free and invitation-only. No tracking or analytics — sign-in is used only to keep the sandbox private. A child's builds and progress stay in their own browser.</div>
+      <div class="fam">Part of a small family of learning apps for curious kids.</div>
+    </div>
+  </footer>
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
