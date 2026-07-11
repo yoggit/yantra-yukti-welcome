@@ -2,9 +2,10 @@
 
 # Yantra-Yukti — welcome / landing page
 
-Public landing page for **Yantra-Yukti** (ಯಂತ್ರ-ಯುಕ್ತಿ, *"build how things work"*), a private,
+Public landing page for **Yantra-Yukti** (*"build how things work"*), a private,
 invitation-only systems-thinking sandbox where curious kids reverse-engineer everyday
-machines and program their hidden logic.
+machines and program their hidden logic — and, in a second **Circuits** mode, fix electronic
+circuits taught through a water metaphor.
 
 - **Landing page:** served from GitHub Pages (this repo).
 - **The app itself:** https://yantra-yukti.web.app (invite-only; sign-in required).
