@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Yantra-Yukti — build how things work</title>
 <meta name="description" content="Yantra-Yukti is a private systems-thinking sandbox for curious kids. Build the hidden logic of everyday machines — or fix electronic circuits explained as water — press Run, and watch it come alive. Deterministic, offline, ad-free.">
-<meta name="theme-color" content="#0B0E2E">
+<meta name="theme-color" content="#0B0E2E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#EDEFFA" media="(prefers-color-scheme: light)">
 <meta property="og:title" content="Yantra-Yukti — build how things work">
 <meta property="og:description" content="Program the hidden logic of everyday machines, and fix electronic circuits drawn as water. A calm, private sandbox for curious kids — sign in with Google to start.">
 <meta property="og:type" content="website">
@@ -19,12 +20,39 @@
     --bg-deep:#0B0E2E; --bg-mid:#171B4D; --gold:#F2B84B; --gold-soft:#f5c86e;
     --mint:#6FCF97; --coral:#F0705A; --peri:#A8B4F0;
     --ink:#F5F3ED; --muted:#9FA8D9; --card:#1E2260; --line:rgba(255,255,255,.10);
+    --grad:#1c2560; --gold-btn:#F2B84B; --on-gold:#231903;
+    --soft:rgba(255,255,255,.05); --soft2:rgba(255,255,255,.02); --soft-h:rgba(255,255,255,.09);
+    --chip-bg:rgba(242,184,75,.10); --chip-bd:rgba(242,184,75,.32);
+    --shadow:rgba(0,0,0,.32);
+  }
+  /* Light — mirrors this app's own light palette. */
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+    color-scheme: light;
+    --bg-deep:#EDEFFA; --bg-mid:#FFFFFF; --grad:#FFFFFF;
+    --gold:#96631A; --gold-soft:#8A5A00; --gold-btn:#E6A21C; --on-gold:#2A1D02;
+    --ink:#1C2140; --muted:#5A6288; --card:#FFFFFF; --line:rgba(28,33,64,.12);
+    --soft:rgba(28,33,64,.045); --soft2:rgba(28,33,64,.025); --soft-h:rgba(28,33,64,.08);
+    --chip-bg:rgba(183,122,12,.10); --chip-bd:rgba(183,122,12,.32);
+    --shadow:rgba(28,33,64,.16);
+    --mint:#2E9A5E; --coral:#D6472C; --peri:#5866C0;
+    }
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --bg-deep:#EDEFFA; --bg-mid:#FFFFFF; --grad:#FFFFFF;
+    --gold:#96631A; --gold-soft:#8A5A00; --gold-btn:#E6A21C; --on-gold:#2A1D02;
+    --ink:#1C2140; --muted:#5A6288; --card:#FFFFFF; --line:rgba(28,33,64,.12);
+    --soft:rgba(28,33,64,.045); --soft2:rgba(28,33,64,.025); --soft-h:rgba(28,33,64,.08);
+    --chip-bg:rgba(183,122,12,.10); --chip-bd:rgba(183,122,12,.32);
+    --shadow:rgba(28,33,64,.16);
+    --mint:#2E9A5E; --coral:#D6472C; --peri:#5866C0;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0; font-family:Inter, system-ui, sans-serif; color:var(--ink);
-    background:radial-gradient(1100px 620px at 50% -8%, #1c2560, var(--bg-deep) 68%);
+    background:radial-gradient(1100px 620px at 50% -8%, var(--grad), var(--bg-deep) 68%);
     background-attachment:fixed; min-height:100vh; line-height:1.55;
   }
   a{color:var(--gold); text-decoration:none;}
@@ -32,7 +60,7 @@
 
   /* Hero */
   .hero{text-align:center; padding:70px 20px 40px;}
-  .hero-mark{width:104px; height:104px; border-radius:24px; display:block; margin:0 auto 16px; box-shadow:0 12px 34px rgba(0,0,0,.32);}
+  .hero-mark{width:104px; height:104px; border-radius:24px; display:block; margin:0 auto 16px; box-shadow:0 12px 34px var(--shadow);}
   .kicker{font-size:13px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 14px;}
   .wordmark{font-family:'Baloo 2', sans-serif; font-weight:800; font-size:clamp(40px, 8.5vw, 76px);
     color:var(--gold); line-height:1.02; margin:0; letter-spacing:.5px;}
@@ -43,13 +71,32 @@
   .cta-row{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:28px;}
   .btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:16px;
     padding:15px 26px; border-radius:14px; border:1px solid transparent; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;}
-  .btn-primary{background:var(--gold); color:#231903; box-shadow:0 10px 30px rgba(242,184,75,.28);}
+  .btn-primary{background:var(--gold-btn); color:var(--on-gold); box-shadow:0 10px 30px rgba(242,184,75,.28);}
   .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px rgba(242,184,75,.36);}
-  .btn-ghost{background:rgba(255,255,255,.05); color:var(--ink); border-color:var(--line);}
-  .btn-ghost:hover{background:rgba(255,255,255,.09);}
+  .btn-ghost{background:var(--soft); color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{background:var(--soft-h);}
   .chips-row{display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin-top:22px;}
   .chip{display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px;
-    background:rgba(242,184,75,.10); border:1px solid rgba(242,184,75,.32); color:var(--gold-soft); font-size:13px; font-weight:600;}
+    background:var(--chip-bg); border:1px solid var(--chip-bd); color:var(--gold-soft); font-size:13px; font-weight:600;}
+
+
+  /* Sticky top strip — mirrors the Gnaana-Kosha landing page. */
+  .topbar{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
+    background:color-mix(in srgb, var(--bg-deep) 80%, transparent); border-bottom:1px solid var(--line);}
+  .topbar .row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0;}
+  .mark{display:flex; align-items:center; gap:10px; font-family:'Baloo 2', sans-serif;
+    font-weight:800; font-size:18px; color:var(--ink);}
+  .mark img{width:34px; height:34px; border-radius:9px;}
+  .bar-actions{display:flex; align-items:center; gap:10px;}
+  .tbtn{border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer;
+    width:38px; height:38px; border-radius:11px; font-size:16px; display:grid; place-items:center;}
+  .tbtn:hover{border-color:var(--gold);}
+  .topbar .btn{font-size:14.5px; padding:10px 18px; border-radius:12px;}
+  .btn:focus-visible, .tbtn:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  @media (max-width:460px){
+    .mark{font-size:15px;} .mark img{width:28px; height:28px;}
+    .topbar .btn{font-size:13px; padding:9px 13px;}
+  }
 
   /* Sections */
   section{padding:26px 0;}
@@ -59,7 +106,7 @@
   /* How it works — 3 steps */
   .steps{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
   .step{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 18px; text-align:center;}
-  .step .n{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; color:#231903; background:var(--gold);
+  .step .n{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; color:var(--on-gold); background:var(--gold-btn);
     width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px;}
   .step h3{font-family:'Baloo 2', sans-serif; font-size:17px; margin:0 0 6px;}
   .step p{margin:0; color:var(--muted); font-size:14px;}
@@ -73,10 +120,10 @@
 
   /* Machines */
   .machines{display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin-top:6px;}
-  .machine{background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:600;}
+  .machine{background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:600;}
 
   /* Access callout */
-  .access{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  .access{background:linear-gradient(180deg, var(--soft), var(--soft2));
     border:1px solid var(--line); border-radius:20px; padding:34px 26px; text-align:center; margin:10px 0 4px;}
   .access h2{margin-top:0;}
   .access p{color:var(--muted); max-width:560px; margin:0 auto 20px; font-size:15.5px;}
@@ -90,6 +137,15 @@
 </style>
 </head>
 <body>
+  <div class="topbar">
+    <div class="wrap row">
+      <div class="mark"><img src="icon.png" alt="" width="34" height="34"> Yantra-Yukti</div>
+      <div class="bar-actions">
+        <button class="tbtn" id="themeToggle" type="button" aria-label="Switch light or dark theme" title="Switch theme">◐</button>
+        <a class="btn btn-primary" href="https://yantra-yukti.web.app">Enter the app →</a>
+      </div>
+    </div>
+  </div>
   <header class="hero">
     <div class="wrap">
       <p class="kicker">Systems thinking for curious kids</p>
@@ -97,15 +153,15 @@
       <h1 class="wordmark">Yantra-Yukti</h1>
       <p class="tagline">Build how things work</p>
       <p class="lead">Take apart the everyday machines around you — a night lamp, a vending machine, a lift — map their hidden logic, then press <b>Run</b> and watch your design come alive.</p>
-      <p class="sub"><b>Yantra</b> (machine) + <b>Yukti</b> (logic) — kids program the invisible software of the physical world, and the app shows them exactly where their logic still needs fixing. And a second mode, <b>Circuits</b>, teaches real electronics — drawn as water you can watch.</p>
+      <p class="sub"><b>Yantra</b> (machine) + <b>Yukti</b> (logic) — kids program the invisible software of the physical world, and the app shows them exactly where their logic still needs fixing. Two more modes go further: <b>Circuits</b> teaches real electronics — drawn as water you can watch — and the <b>Tinker Lab</b> is a 3D workbench where they wire real parts by hand, then print a handout and build it for real.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="https://yantra-yukti.web.app">Enter Yantra-Yukti →</a>
         <a class="btn btn-ghost" href="#access">Getting started</a>
       </div>
       <div class="chips-row">
-        <span class="chip">🧩 Machines + ⚡ Circuits</span>
+        <span class="chip">🧩 Machines · 🔌 Circuits · 🔧 Tinker Lab</span>
         <span class="chip">🔑 Sign in with Google</span>
-        <span class="chip">📴 Works offline</span>
+        <span class="chip">✈️ Works offline</span>
         <span class="chip">🚫 No ads · no tracking</span>
       </div>
     </div>
@@ -114,7 +170,7 @@
   <main class="wrap">
     <section>
       <h2>How it works</h2>
-      <p class="section-sub">No syntax to memorise — just rules, and a machine that reacts.</p>
+      <p class="section-sub">No syntax to memorise — just rules, and a machine that reacts. That's the <b>Machines</b> mode; <b>Circuits</b> and the <b>Tinker Lab</b> below work the same way — build it, press Run, watch what happens.</p>
       <div class="steps">
         <div class="step"><div class="n">1</div><h3>Pick a machine</h3><p>Choose an everyday machine and figure out the hidden logic that should make it work.</p></div>
         <div class="step"><div class="n">2</div><h3>Build the rules</h3><p>Assemble simple <b>WHEN … THEN …</b> rules from dropdowns — conditions, AND / OR / NOT, memory, timers, states. Stuck? Tap <b>Build it with me</b> and it walks you through a working design, one rule at a time.</p></div>
@@ -129,14 +185,15 @@
         <div class="feat"><span class="i">🎯</span><h3>Debug, don't guess</h3><p>When it's wrong, the app points at the one situation that breaks — real problem-solving, not trial and error.</p></div>
         <div class="feat"><span class="i">🌈</span><h3>Many right answers</h3><p>Each machine can be solved several valid ways — and a step-by-step <b>Build it with me</b> coach walks through two of them, one rule at a time, so no child gets stuck.</p></div>
         <div class="feat"><span class="i">🧠</span><h3>Real systems thinking</h3><p>Logic, memory, timing, states, safety and decisions — the ideas behind real programming, with no code.</p></div>
-        <div class="feat"><span class="i">📴</span><h3>Calm & offline</h3><p>Deterministic and 100% offline — no AI, no server, no ads, and a child's work stays in their browser.</p></div>
+        <div class="feat"><span class="i">🏗️</span><h3>Room to just build</h3><p>When the puzzles are done, the <b>Tinker Lab</b> has no puzzle at all — a 3D bench, a bin full of real parts, and whatever a child decides to make.</p></div>
+        <div class="feat"><span class="i">✈️</span><h3>Calm & offline</h3><p>Deterministic and 100% offline — no AI, no server, no ads, and a child's work stays in their browser.</p></div>
         <div class="feat"><span class="i">🎉</span><h3>Made to delight</h3><p>Animated machines, a light/dark theme, gentle hints, worked examples, and confetti when it clicks.</p></div>
       </div>
     </section>
 
     <section>
-      <h2>13 machines to master</h2>
-      <p class="section-sub">Each teaches a new idea — from simple logic to sequences, control loops, and edge-detection.</p>
+      <h2>Machines to master</h2>
+      <p class="section-sub">Each teaches a new idea — from simple logic to sequences, control loops, and edge-detection. New ones get added over time.</p>
       <div class="machines">
         <span class="machine">💡 Night Lamp</span>
         <span class="machine">🥤 Vending Machine</span>
@@ -155,22 +212,56 @@
     </section>
 
     <section>
-      <h2>⚡ New: build electronics, too</h2>
-      <p class="section-sub">A second mode — flip the <b>Machines&nbsp;|&nbsp;Circuits</b> switch — teaches resistors, capacitors, diodes and transistors. Because electricity is invisible, it's drawn as <b>water</b>.</p>
+      <h2>⚡ Build electronics, too</h2>
+      <p class="section-sub">A second mode — tap <b>🔌 Circuits</b> — teaches resistors, capacitors, diodes and transistors. Because electricity is invisible, it's drawn as <b>water</b>.</p>
       <div class="grid">
         <div class="feat"><span class="i">💧</span><h3>Electronics as water</h3><p>Voltage is water pressure, a resistor is a narrow pipe, a capacitor is a springy tank, a diode a one-way valve — physics you can actually watch flow.</p></div>
-        <div class="feat"><span class="i">🔧</span><h3>Fix the broken circuit</h3><p>Each puzzle hands the child a circuit that fails, and a parts bin. Fit the right part, press Run, and see it survive the surge — or pop.</p></div>
+        <div class="feat"><span class="i">🩹</span><h3>Fix the broken circuit</h3><p>Each puzzle hands the child a circuit that fails, and a parts bin. Fit the right part, press Run, and see it survive the surge — or pop.</p></div>
         <div class="feat"><span class="i">🎓</span><h3>Real components</h3><p>The same ideas real engineers use — current limiting, smoothing, timing, one-way flow, logic gates and switching — with no maths and no code.</p></div>
       </div>
       <div class="machines" style="margin-top:18px;">
         <span class="machine">🔥 Current Limiter</span>
-        <span class="machine">🔅 Dimmer</span>
+        <span class="machine">🌗 Dimmer</span>
         <span class="machine">💡 Surge Guard</span>
         <span class="machine">🕯️ Steady Glow</span>
         <span class="machine">⏳ Slow Start</span>
-        <span class="machine">🚱 Backflow Stopper</span>
+        <span class="machine">🌊 Backflow Stopper</span>
         <span class="machine">🔔 Doorbell</span>
         <span class="machine">🎛️ Pressure Switch</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>🔧 New: build it in 3D, then build it for real</h2>
+      <p class="section-sub">A third mode — tap <b>🔧 Tinker Lab</b> — is an open 3D workbench stocked with <b>real components</b>, and more keep arriving. No puzzle to solve: build whatever you imagine.</p>
+      <div class="grid">
+        <div class="feat"><span class="i">🧲</span><h3>Wire it with your hands</h3><p>Drag parts onto the bench, drag wire between their terminals, and orbit around your build. Press <b>Run</b> and real physics takes over — bulbs brighten with power, motors speed up with current, an LED wired backwards simply won't light.</p></div>
+        <div class="feat"><span class="i">🖨️</span><h3>Print it and build it</h3><p>Save a design to your own catalogue, then print a handout — renders of your build from every side, a parts list, step-by-step instructions and safety notes — and make it again with real components on the kitchen table.</p></div>
+        <div class="feat"><span class="i">🧭</span><h3>Never stuck</h3><p>A <b>Build with me</b> coach walks you through your first builds step by step, <b>Meet the parts</b> explains what every component really does, and ready-made everyday systems — a windmill, a wet grinder, a doorbell — load and run in one tap.</p></div>
+      </div>
+      <div class="machines" style="margin-top:18px;">
+        <span class="machine">🔋 Batteries &amp; solar</span>
+        <span class="machine">💡 Bulbs &amp; LEDs</span>
+        <span class="machine">⚙️ Motors</span>
+        <span class="machine">🔔 Buzzers</span>
+        <span class="machine">🧲 Electromagnets</span>
+        <span class="machine">📟 7-segment display</span>
+        <span class="machine">💬 Message board</span>
+        <span class="machine">🎚️ Potentiometers</span>
+        <span class="machine">🌗 Light sensors</span>
+        <span class="machine">🎢 Tilt switches</span>
+        <span class="machine">🧯 Fuses</span>
+        <span class="machine">🍞 Breadboard</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>🏡 For parents</h2>
+      <p class="section-sub">Optional — set it up once, or ignore it entirely.</p>
+      <div class="grid">
+        <div class="feat"><span class="i">🧒</span><h3>A profile per child</h3><p>Give each child their own profile — they tap their face to jump in. Their builds, designs and progress stay their own; a sibling can't see or delete them.</p></div>
+        <div class="feat"><span class="i">⏳</span><h3>A daily time limit</h3><p>Choose a limit from 15 minutes to 2 hours, protected by a PIN only you know. Children see their own time ticking down and can ask for more — you can grant extra just for today.</p></div>
+        <div class="feat"><span class="i">📋</span><h3>See what they built</h3><p>A plain list of recent builds — which machine or circuit, how long they spent, and whether they finished it or wandered off. No scores, no leaderboards.</p></div>
       </div>
     </section>
 
@@ -193,6 +284,23 @@
       <div class="fam">Part of a small family of learning apps for curious kids.</div>
     </div>
   </footer>
-  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // Light/dark toggle. KEY is shared with the hub and the sibling landing pages — they're
+    // all one origin (yoggit.github.io), so a visitor's choice follows them across the family.
+    (function(){
+      var root = document.documentElement, KEY = 'apps-theme';
+      var btn = document.getElementById('themeToggle');
+      try{ var saved = localStorage.getItem(KEY);
+           if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved); }catch(e){}
+      btn.addEventListener('click', function(){
+        var cur = root.getAttribute('data-theme');
+        if(!cur) cur = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        var next = cur === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try{ localStorage.setItem(KEY, next); }catch(e){}
+      });
+    })();
+  </script>
 </body>
 </html>
