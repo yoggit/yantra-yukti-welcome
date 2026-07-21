@@ -134,7 +134,19 @@
 
   @media (max-width:720px){ .grid, .steps{grid-template-columns:1fr 1fr;} }
   @media (max-width:460px){ .grid, .steps{grid-template-columns:1fr;} .hero{padding-top:52px;} }
-</style>
+
+  /* Pronunciation — the names are Kannada/Sanskrit and get read wrong on sight. Respelling first
+     (that part always works), speaker second (hidden entirely unless a suitable voice exists). */
+  .pron{display:flex; align-items:center; justify-content:center; gap:9px; flex-wrap:wrap;
+    margin:2px 0 12px; font-size:14px;}
+  .pron-say{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px;
+    color:var(--gold,var(--flame)); letter-spacing:.02em;}
+  .pron-btn{display:inline-grid; place-items:center; width:26px; height:26px; padding:0;
+    border-radius:8px; border:1px solid var(--line); background:transparent; color:var(--muted);
+    cursor:pointer; transition:color .15s, border-color .15s;}
+  .pron-btn:hover, .pron-btn.saying{color:var(--gold,var(--flame)); border-color:var(--gold,var(--flame));}
+  .pron-btn svg{width:15px; height:15px;}
+  </style>
 </head>
 <body>
   <div class="topbar">
@@ -151,6 +163,7 @@
       <p class="kicker">Systems thinking for curious kids</p>
       <img class="hero-mark" src="icon.png" alt="Yantra-Yukti logo" width="104" height="104">
       <h1 class="wordmark">Yantra-Yukti</h1>
+      <p class="pron"><span class="pron-say">yan·tra · yuk·ti</span><button class="pron-btn" id="pronBtn" type="button" hidden aria-label="Hear how to say Yantra-Yukti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17.5 8.5a5 5 0 0 1 0 7"/><path d="M20 6a9 9 0 0 1 0 12"/></svg></button></p>
       <p class="tagline">Build how things work</p>
       <p class="lead">Take apart the everyday machines around you — a night lamp, a vending machine, a lift — map their hidden logic, then press <b>Run</b> and watch your design come alive.</p>
       <p class="sub"><b>Yantra</b> (machine) + <b>Yukti</b> (logic) — kids program the invisible software of the physical world, and the app shows them exactly where their logic still needs fixing. Two more modes go further: <b>Circuits</b> teaches real electronics — drawn as water you can watch, climbing all the way to a machine that <b>adds</b> — and the <b>Tinker Lab</b> is a 3D workbench where they wire real parts by hand, then print a handout and build it for real.</p>
@@ -307,5 +320,32 @@
       });
     })();
   </script>
+<script>
+  /* Pronunciation speaker. Same policy as the apps: a Kannada voice reading the Kannada script, or
+     Indian English reading the respelling, or no button at all. Voices load async, hence the event. */
+  (function(){
+    var btn = document.getElementById("pronBtn");
+    if(!btn || !window.speechSynthesis) return;
+    var KN = "ಯಂತ್ರ ಯುಕ್ತಿ", SAY = "yan·tra · yuk·ti";
+    function pick(){
+      var v = speechSynthesis.getVoices() || [];
+      for(var i=0;i<v.length;i++) if(v[i].lang && v[i].lang.indexOf("kn") === 0) return {v:v[i], kn:true};
+      for(var j=0;j<v.length;j++) if(v[j].lang === "en-IN" || v[j].lang === "en_IN") return {v:v[j], kn:false};
+      return null;                       /* deliberately nothing else — see the note above */
+    }
+    function sync(){ btn.hidden = !pick(); }
+    sync();
+    speechSynthesis.addEventListener && speechSynthesis.addEventListener("voiceschanged", sync);
+    btn.addEventListener("click", function(){
+      var got = pick(); if(!got) return;
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(got.kn ? KN : SAY.replace(/·/g, " "));
+      u.voice = got.v; u.lang = got.v.lang; u.rate = 0.85;
+      btn.classList.add("saying");
+      u.onend = u.onerror = function(){ btn.classList.remove("saying"); };
+      speechSynthesis.speak(u);
+    });
+  })();
+</script>
 </body>
 </html>
